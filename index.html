@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown</title>
+  <style>
+    body {
+  background: black;
+  color: grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Times New Roman;
+}
+
+/* Title text */
+#message {
+  font-size: 68px; /* you can change this */
+  letter-spacing: 1px;
+}
+
+/* TIMER — ONLY SIZE CHANGED */
+#timer {
+  font-size: 220px;
+  font-family: Consolas, monospace;
+}
+
+/* Start screen */
+#startScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 68px;
+  cursor: pointer;
+  z-index: 9999;
+  font-family: Times New Roman;
+}
+
+
+
+  </style> 
+
+</head>
+<body>
+
+<div id="startScreen">What Jynxzi Did To Carter; Click To Continue</div>
+
+<audio id="tick" src="tick.mp3"></audio>
+
+
+<div id="message">Exposing The Truth About Jynxzi... </div>
+
+<div id="timer">Loading...</div>
+
+<script>
+
+let audioUnlocked = false;
+
+document.getElementById("startScreen").addEventListener("click", () => {
+  document.getElementById("startScreen").style.display = "none";
+});
+
+
+document.addEventListener("click", () => {
+  if (!audioUnlocked) {
+    const tick = document.getElementById("tick");
+    tick.play().catch(() => {});
+    tick.pause();
+    tick.currentTime = 0;
+    audioUnlocked = true;
+  }
+});
+
+  const endTime = new Date("2026-02-21T18:00:00Z").getTime();
+  const video = "https://www.youtube.com/@CarterOnHere";
+
+  setInterval(() => {
+    const now = Date.now();
+    const diff = endTime - now;
+
+    if (diff <= 0) {
+      window.location.href = video;
+      return;
+    }
+
+   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+const minutes = Math.floor((diff / (1000 * 60)) % 60);
+const seconds = Math.floor((diff / 1000) % 60);
+
+const d = String(days).padStart(2, "0");
+const h = String(hours).padStart(2, "0");
+const m = String(minutes).padStart(2, "0");
+const s = String(seconds).padStart(2, "0");
+
+
+document.getElementById("timer").textContent =
+  d + ":" + h + ":" + m + ":" + s;
+
+ if (audioUnlocked) {
+  const tick = document.getElementById("tick");
+  tick.currentTime = 0;
+  tick.play().catch(() => {});
+}
+ }, 1000);
+</script>
+
+</body>
+</html>
